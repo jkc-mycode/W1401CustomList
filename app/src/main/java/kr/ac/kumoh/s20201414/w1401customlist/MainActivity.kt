@@ -40,14 +40,19 @@ class MainActivity : AppCompatActivity() {
             //과제때 싹 고쳐야함, 애트리뷰트 갯수만큼 필요
             //val txText = itemView.findViewById(android.R.id.text1) as TextView
             //val txText: TextView = itemView.findViewById(android.R.id.text1)
-            val txTitle = itemView.findViewById<TextView>(android.R.id.text1)
-            val txSinger = itemView.findViewById<TextView>(android.R.id.text2)
+            val txTitle = itemView.findViewById<TextView>(R.id.test1)
+            val txSinger = itemView.findViewById<TextView>(R.id.test2)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             //통나무 생성할 때 사용
+//            val view = layoutInflater.inflate(
+//                android.R.layout.simple_list_item_2, //만든 레이아웃에 맞춰서 바꿔야 함
+//                parent,
+//                false
+//            )
             val view = layoutInflater.inflate(
-                android.R.layout.simple_list_item_2, //만든 레이아웃에 맞춰서 바꿔야 함
+                R.layout.item_song, //만든 레이아웃에 맞춰서 바꿔야 함
                 parent,
                 false
             )
