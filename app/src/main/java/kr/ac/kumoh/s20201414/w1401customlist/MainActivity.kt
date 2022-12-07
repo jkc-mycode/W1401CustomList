@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.toolbox.NetworkImageView
 import kr.ac.kumoh.s20201414.w1401customlist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() {
             //val txText: TextView = itemView.findViewById(android.R.id.text1)
             val txTitle = itemView.findViewById<TextView>(R.id.test1)
             val txSinger = itemView.findViewById<TextView>(R.id.test2)
+            val niImage: NetworkImageView = itemView.findViewById(R.id.image);
+
+            init {
+                niImage.setDefaultImageResId(android.R.drawable.ic_menu_report_image)
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -59,10 +65,11 @@ class MainActivity : AppCompatActivity() {
             return ViewHolder(view)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) { //시험 중요
             //통나무의 내용을 세팅하는 곳(새로 나오는 부분의) ViewHolder와 세트이기에 같은 개수만큼 변경
             holder.txTitle.text = model.list.value?.get(position)?.title.toString()
             holder.txSinger.text = model.list.value?.get(position)?.singer.toString()
+            holder.niImage.setImageUrl(model.getImageUrl(position), model.imageLoader)
         }
 
         override fun getItemCount() = model.list.value?.size ?: 0
