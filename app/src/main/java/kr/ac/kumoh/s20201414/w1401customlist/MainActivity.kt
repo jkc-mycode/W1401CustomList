@@ -1,10 +1,13 @@
 package kr.ac.kumoh.s20201414.w1401customlist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         model.requestSong()
     }
     inner class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>(){
-        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnClickListener {
             //과제때 싹 고쳐야함, 애트리뷰트 갯수만큼 필요
             //val txText = itemView.findViewById(android.R.id.text1) as TextView
             //val txText: TextView = itemView.findViewById(android.R.id.text1)
@@ -47,6 +50,19 @@ class MainActivity : AppCompatActivity() {
 
             init {
                 niImage.setDefaultImageResId(android.R.drawable.ic_menu_report_image)
+                itemView.setOnClickListener(this)
+            }
+
+            override fun onClick(v: View?) {
+//                Toast.makeText(application,
+//                    model.list.value?.get(adapterPosition)?.title,
+//                    Toast.LENGTH_SHORT).show()
+                val intent = Intent(application, SongActivity::class.java)
+                val song = model.list.value?.get(adapterPosition)
+                intent.putExtra(SongActivity.KEY_TITLE, song?.title)
+                intent.putExtra(SongActivity.KEY_SINGER, song?.singer)
+                intent.putExtra(SongActivity.KEY_IMAGE, model.getImageUrl(adapterPosition))
+                startActivity(intent)
             }
         }
 
